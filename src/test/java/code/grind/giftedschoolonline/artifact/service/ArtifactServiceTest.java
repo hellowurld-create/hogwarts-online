@@ -2,6 +2,7 @@ package code.grind.giftedschoolonline.artifact.service;
 
 import code.grind.giftedschoolonline.artifact.Artifact;
 import code.grind.giftedschoolonline.artifact.repository.ArtifactRepository;
+import code.grind.giftedschoolonline.system.Exception.ObjectNotFoundException;
 import code.grind.giftedschoolonline.utils.IdWorker;
 import code.grind.giftedschoolonline.wizard.Wizard;
 import org.junit.jupiter.api.AfterEach;
@@ -13,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,10 @@ class ArtifactServiceTest {
     ArtifactService artifactService;
 
     List<Artifact> artifactList;
+
+
+    @Value("${api.endpoint.base-url}")
+    String baseUrl;
 
     @BeforeEach
     void setUp() {
@@ -109,7 +115,7 @@ class ArtifactServiceTest {
         });
         //Then
         assertThat(thrown)
-                .isInstanceOf(ArtifactNotFoundException.class)
+                .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessage("Could not find artifact with id: 1250808601744904191😢");
         verify(artifactRepository, times(1)).findById("1250808601744904191");
     }
@@ -187,7 +193,7 @@ class ArtifactServiceTest {
         given(artifactRepository.findById("1250808601744904191")).willReturn(Optional.empty());
 
         //When
-        assertThrows(ArtifactNotFoundException.class, ()->{
+        assertThrows(ObjectNotFoundException.class, ()->{
             artifactService.update("1250808601744904191", update);
         });
 
@@ -220,7 +226,7 @@ class ArtifactServiceTest {
         given(artifactRepository.findById("1250808601744904191")).willReturn(Optional.empty());
 
         //When
-        assertThrows(ArtifactNotFoundException.class, () ->{
+        assertThrows(ObjectNotFoundException.class, () ->{
             artifactService.delete("1250808601744904191");
         });
 

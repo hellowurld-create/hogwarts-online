@@ -1,7 +1,6 @@
 package code.grind.giftedschoolonline.system.Exception;
 
 
-import code.grind.giftedschoolonline.artifact.service.ArtifactNotFoundException;
 import code.grind.giftedschoolonline.system.Result;
 import code.grind.giftedschoolonline.system.StatusCode;
 import org.springframework.http.HttpStatus;
@@ -19,9 +18,9 @@ import java.util.Map;
 @RestControllerAdvice
 public class ExpectionHandlerAdvice {
 
-    @ExceptionHandler(ArtifactNotFoundException.class)
+    @ExceptionHandler(ObjectNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    Result handleArtifactNotFoundException(ArtifactNotFoundException ex){
+    Result handleObjectNotFoundException(ObjectNotFoundException ex){
         return new Result(false, StatusCode.NOT_FOUND, ex.getMessage());
     }
 
