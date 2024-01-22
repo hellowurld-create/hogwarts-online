@@ -53,17 +53,16 @@ public class WizardService {
     }
 
     public void assignArtifact(Integer wizardId, String artifactId){
-        // Find this artifact by Id from DB.
-        Artifact artifactToBeAssigned = this.artifactRepository.findById(artifactId)
+        //Find the artifact by id in db.
+       Artifact artifactToBeAssigned = this.artifactRepository.findById(artifactId)
                 .orElseThrow(() -> new ObjectNotFoundException("artifact", artifactId));
 
-        // Find this wizard by Id from DB.
-        Wizard wizard = this.wizardRepository.findById(wizardId)
+        //Find the wizard by id from db.
+       Wizard wizard = this.wizardRepository.findById(wizardId)
                 .orElseThrow(() -> new ObjectNotFoundException("wizard", wizardId));
-
-        // Artifact assignment
-        // We need to see if the artifact is already owned by some wizard.
-        if (artifactToBeAssigned.getOwner() != null) {
+        //Assign Artifact
+        //See if the artifact is already own by a wizard.
+        if(artifactToBeAssigned.getOwner() != null){
             artifactToBeAssigned.getOwner().removeArtifact(artifactToBeAssigned);
         }
         wizard.addArtifact(artifactToBeAssigned);
