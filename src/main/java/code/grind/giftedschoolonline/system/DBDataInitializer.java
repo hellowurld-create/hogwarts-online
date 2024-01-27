@@ -3,7 +3,6 @@ package code.grind.giftedschoolonline.system;
 import code.grind.giftedschoolonline.artifact.Artifact;
 import code.grind.giftedschoolonline.artifact.repository.ArtifactRepository;
 import code.grind.giftedschoolonline.user.User;
-import code.grind.giftedschoolonline.user.repository.UserRepository;
 import code.grind.giftedschoolonline.user.service.UserService;
 import code.grind.giftedschoolonline.wizard.Wizard;
 import code.grind.giftedschoolonline.wizard.repository.WizardRepository;

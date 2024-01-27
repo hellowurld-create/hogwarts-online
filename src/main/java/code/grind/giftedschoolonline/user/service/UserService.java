@@ -39,13 +39,7 @@ public class UserService implements UserDetailsService {
         return this.userRepository.save(newUser);
     }
 
-    /**
-     * We are not using this update to change user password.
-     *
-     * @param userId
-     * @param update
-     * @return
-     */
+
     public User update(Integer userId, User update) {
         User oldHogwartsUser = this.userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("user", userId));
