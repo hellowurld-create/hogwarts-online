@@ -4,6 +4,8 @@ package code.grind.giftedschoolonline.system.Exception;
 import code.grind.giftedschoolonline.system.Result;
 import code.grind.giftedschoolonline.system.StatusCode;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,6 +39,12 @@ public class ExpectionHandlerAdvice {
             map.put(key, val);
         });
         return new Result(false, StatusCode.INVALID_ARGUMENT, "Provided arguments are Invalid, see data for details.", map);
+    }
+
+    @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    Result handleAuthenticationException(Exception ex){
+        return new Result(false, StatusCode.UNAUTHORIZED,"username or password is incorrect", ex.getMessage());
     }
 
 
