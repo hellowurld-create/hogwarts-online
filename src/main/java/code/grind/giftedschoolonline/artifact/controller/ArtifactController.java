@@ -18,24 +18,25 @@ import java.util.stream.Collectors;
 @RequestMapping("${api.endpoint.base-url}/artifacts")
 public class ArtifactController {
 
-    public ArtifactController(ArtifactService artifactService, ArtifactToArtifactDtoConverter artifactToArtifactDtoConverter, ArtifactDtoToArtifactConverter artifactDtoToArtifactConverter) {
-        this.artifactService = artifactService;
-        this.artifactToArtifactDtoConverter = artifactToArtifactDtoConverter;
-        this.artifactDtoToArtifactConverter = artifactDtoToArtifactConverter;
-    }
+
 
     private final ArtifactService artifactService;
     private final ArtifactToArtifactDtoConverter artifactToArtifactDtoConverter;
 
     private final ArtifactDtoToArtifactConverter artifactDtoToArtifactConverter;
 
+    public ArtifactController(ArtifactService artifactService, ArtifactToArtifactDtoConverter artifactToArtifactDtoConverter, ArtifactDtoToArtifactConverter artifactDtoToArtifactConverter) {
+        this.artifactService = artifactService;
+        this.artifactToArtifactDtoConverter = artifactToArtifactDtoConverter;
+        this.artifactDtoToArtifactConverter = artifactDtoToArtifactConverter;
+    }
 
 
     @GetMapping("/{artifactId}")
     public Result findArtifactById(@PathVariable String artifactId){
         Artifact foundArtifact = this.artifactService.findById(artifactId);
         ArtifactDto artifactDto = this.artifactToArtifactDtoConverter.convert(foundArtifact);
-            return new Result(true, StatusCode.SUCCESS, "Found One Successful", foundArtifact);
+        return new Result(true, StatusCode.SUCCESS, "Find One Success", artifactDto);
     }
 
     @GetMapping

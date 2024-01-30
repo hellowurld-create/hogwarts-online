@@ -3,7 +3,6 @@ package code.grind.giftedschoolonline.artifact.converter;
 import code.grind.giftedschoolonline.artifact.Artifact;
 import code.grind.giftedschoolonline.artifact.dto.ArtifactDto;
 import code.grind.giftedschoolonline.wizard.converter.WizardtoWizardDtoConverter;
-import code.grind.giftedschoolonline.wizard.dto.WizardDto;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +21,8 @@ public class ArtifactToArtifactDtoConverter implements Converter<Artifact, Artif
                 source.getName(),
                 source.getDescription(),
                 source.getImageUrl(),
-                source.getOwner() != null ?
-                        this.wizardtoWizardDtoConverter.convert(source.getOwner())
+                source.getOwner() != null
+                        ? this.wizardtoWizardDtoConverter.convert(source.getOwner())
                         : null);
         return artifactDto;
     }
