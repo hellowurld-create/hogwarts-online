@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 @Entity
 public class Artifact implements Serializable {
+
     @Id
     private String id;
 
@@ -64,4 +65,5 @@ public class Artifact implements Serializable {
     public void setOwner(Wizard owner) {
         this.owner = owner;
     }
+
 }

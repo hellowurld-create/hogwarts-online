@@ -9,17 +9,18 @@ import java.util.List;
 
 @Entity
 public class Wizard implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String name;
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "owner")
-    private List<Artifact> artifactList = new ArrayList<>();
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "owner")
+    private List<Artifact> artifacts = new ArrayList<>();
+
 
     public Wizard() {
-
     }
 
     public Integer getId() {
@@ -39,31 +40,31 @@ public class Wizard implements Serializable {
     }
 
     public List<Artifact> getArtifactList() {
-        return artifactList;
+        return artifacts;
     }
 
-    public void setArtifactList(List<Artifact> artifactList) {
-        this.artifactList = artifactList;
+    public void setArtifacts(List<Artifact> artifacts) {
+        this.artifacts = artifacts;
     }
 
     public void addArtifact(Artifact artifact) {
         artifact.setOwner(this);
-        this.artifactList.add(artifact);
+        this.artifacts.add(artifact);
     }
 
     public Integer getNumberOfArtifacts() {
-        return this.artifactList.size();
+        return this.artifacts.size();
     }
 
-
     public void removeAllArtifacts() {
-        this.artifactList.stream().forEach(artifact -> artifact.setOwner(null));
-        this.artifactList = new ArrayList<>();
+        this.artifacts.stream().forEach(artifact -> artifact.setOwner(null));
+        this.artifacts = new ArrayList<>();
     }
 
     public void removeArtifact(Artifact artifactToBeAssigned) {
         // Remove artifact owner.
         artifactToBeAssigned.setOwner(null);
-        this.artifactList.remove(artifactToBeAssigned);
+        this.artifacts.remove(artifactToBeAssigned);
     }
+
 }
